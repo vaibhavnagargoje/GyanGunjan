@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<main class="container mx-auto px-4 md:px-6 max-w-7xl transition-all duration-1000 {% if exit_animation %}opacity-0 scale-95{% else %}opacity-100 scale-100{% endif %}">
+
+<section class="py-12">
+  <div class="container mx-auto bg-white rounded-custom py-12 px-6">
+    <h1 class="text-3xl font-bold text-black text-center mb-8">Let’s Collaborate</h1>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+      <!-- Form Section -->
+      <div class="bg-white shadow-lg rounded-lg p-8">
+        <h2 class="text-2xl text-black font-semibold mb-6">Collaborate With Us</h2>
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="first_name" class="block text-sm text-black font-medium mb-1">First Name</label>
+              <input type="text" id="first_name" name="first_name" class="w-full border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            <div>
+              <label for="last_name" class="block text-sm text-black font-medium mb-1">Last Name</label>
+              <input type="text" id="last_name" name="last_name" class="w-full border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <label for="email" class="block text-sm text-black font-medium mb-1">Email ID</label>
+            <input type="email" id="email" name="email" class="w-full border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+          </div>
+
+          <div class="mt-4">
+            <label class="block text-sm text-black font-medium mb-1">Collaboration Type</label>
+            <div class="flex flex-wrap gap-4">
+              <div>
+                <input type="checkbox" id="content" name="collaborate_type[]" value="content" checked class="mr-2">
+                <label for="content">Content</label>
+              </div>
+              <div>
+                <input type="checkbox" id="photo" name="collaborate_type[]" value="photo" class="mr-2">
+                <label for="photo">Photo</label>
+              </div>
+              <div>
+                <input type="checkbox" id="video" name="collaborate_type[]" value="video" class="mr-2">
+                <label for="video">Video</label>
+              </div>
+              <div>
+                <input type="checkbox" id="pdf" name="collaborate_type[]" value="pdf" class="mr-2">
+                <label for="pdf">PDF</label>
+              </div>
+            </div>
+          </div>
+
+          <div id="upload-fields" class="mt-4 hidden">
+            <label class="block text-sm font-medium mb-1">Upload Files</label>
+            <div class="space-y-4">
+              <div id="upload-photo" class="hidden">
+                <input type="file" name="photo" class="block w-full border-gray-300 rounded-lg">
+              </div>
+              <div id="upload-video" class="hidden">
+                <input type="file" name="video" class="block w-full border-gray-300 rounded-lg">
+              </div>
+              <div id="upload-pdf" class="hidden">
+                <input type="file" name="pdf" class="block w-full border-gray-300 rounded-lg">
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <label for="message" class="block text-sm font-medium mb-1">Message</label>
+            <textarea id="message" name="message" rows="4" class="w-full border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
+          </div>
+
+          <div class="mt-4 flex items-center">
+            <input type="checkbox" id="newsletter" name="subscribed" class="mr-2">
+            <label for="newsletter" class="text-sm">Get subscribed to my newsletter.</label>
+          </div>
+
+          <div class="mt-6">
+            <button type="submit" class="w-full py-2 bg-yellow-500 text-white rounded-lg font-medium hover:bg-yellow-600">Submit</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Image Section -->
+      <div>
+        <img src="{% static 'images/contribute-image.jpg' %}" alt="Collaborate" class="rounded-lg shadow-lg">
+      </div>
+    </div>
+
+    <!-- Contributors Section -->
+<div class="mt-12 bg-yellow-500 rounded-lg p-6">
+    <h2 class="text-2xl text-black text-center font-semibold mb-4">List of Contributors</h2>
+    <div class="overflow-x-auto">
+      <table class="table-auto w-full text-left  rounded-lg shadow">
+        <thead class="text-black ">
+          <tr>
+            <th class="px-4 py-2">First Name</th>
+            <th class="px-4 py-2">Last Name</th>
+            <th class="px-4 py-2">Email</th>
+          </tr> 
+        </thead>
+        <tbody>
+          {% for contributor in contributors %}
+            <tr class="border-b">
+              <td class="px-4 py-2">{{ contributor.first_name }}</td>
+              <td class="px-4 py-2">{{ contributor.last_name }}</td>
+              <td class="px-4 py-2">{{ contributor.email }}</td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="3" class="text-center text-gray-500 py-4">No contributors yet.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  </div>
+</section>
+</main>
+
+<script>
+  // Show/hide file upload fields based on selected checkboxes
+  const checkboxes = document.querySelectorAll('input[type="checkbox"][name="collaborate_type[]"]');
+  const uploadFields = document.getElementById('upload-fields');
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      uploadFields.classList.toggle('hidden', !Array.from(checkboxes).some(cb => cb.checked && cb.id !== 'content'));
+      document.getElementById(`upload-${checkbox.id}`).classList.toggle('hidden', !checkbox.checked);
+    });
+  });
+</script>
+{% endblock %}

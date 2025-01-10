@@ -1,0 +1,38 @@
+{% include "base.html" %}
+
+<form method="get">
+    <!-- State Dropdown -->
+    <label for="state">State:</label>
+    <select id="state" name="state" onchange="this.form.submit()">
+      <option value="">Select State</option>
+      {% for state in states %}
+        <option value="{{ state.id }}" {% if state.id == request.GET.state %}selected{% endif %}>{{ state.name }}</option>
+      {% endfor %}
+    </select>
+  
+    <!-- Region Dropdown -->
+    <label for="region">Region:</label>
+    <select id="region" name="region" onchange="this.form.submit()">
+      <option value="">Select Region</option>
+      {% for region in regions %}
+        <option value="{{ region.id }}" {% if region.id == request.GET.region %}selected{% endif %}>{{ region.name }}</option>
+      {% endfor %}
+    </select>
+  </form>
+  
+  <!-- Flipbooks -->
+  <div>
+    <h2>Flipbooks</h2>
+    <ul>
+      {% for flipbook in flipbooks %}
+        <li>
+          <h3>{{ flipbook.title }}</h3>
+          <p>{{ flipbook.description }}</p>
+          <a href="{{ flipbook.file.url }}" target="_blank">View Flipbook</a>
+        </li>
+      {% empty %}
+        <p>No flipbooks available for the selected state/region.</p>
+      {% endfor %}
+    </ul>
+  </div>
+  
