@@ -125,3 +125,18 @@ class Flipbook(models.Model):
         return self.title
 
 
+
+
+
+
+
+
+# about project model class
+
+class AboutProject(models.Model):
+    title = models.CharField(max_length=200)
+    tag = models.CharField(max_length=100)
+    description_left = models.TextField()
+    description_right = models.TextField()
+    logo_image = models.ImageField(upload_to="about_project/")
+

@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 
+from .models import Contribute
+
 # Create your views here.
 
-from .models import Contribute
+
 
 def Contribute_view(request):
 

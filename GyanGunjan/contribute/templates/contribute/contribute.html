@@ -2,135 +2,212 @@
 
 {% block content %}
 {% load static %}
-<main class="container mx-auto px-4 md:px-6 max-w-7xl transition-all duration-1000 {% if exit_animation %}opacity-0 scale-95{% else %}opacity-100 scale-100{% endif %}">
 
-<section class="py-12">
-  <div class="container mx-auto bg-white rounded-custom py-12 px-6">
-    <h1 class="text-3xl font-bold text-black text-center mb-8">Let’s Collaborate</h1>
+<main class="min-h-screen text-black bg-white">
+    <!-- NavBar -->
+   
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-      <!-- Form Section -->
-      <div class="bg-white shadow-lg rounded-lg p-8">
-        <h2 class="text-2xl text-black font-semibold mb-6">Collaborate With Us</h2>
-        <form method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <label for="first_name" class="block text-sm text-black font-medium mb-1">First Name</label>
-              <input type="text" id="first_name" name="first_name" class="w-full border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-            </div>
-            <div>
-              <label for="last_name" class="block text-sm text-black font-medium mb-1">Last Name</label>
-              <input type="text" id="last_name" name="last_name" class="w-full border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-            </div>
-          </div>
-
-          <div class="mt-4">
-            <label for="email" class="block text-sm text-black font-medium mb-1">Email ID</label>
-            <input type="email" id="email" name="email" class="w-full border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-          </div>
-
-          <div class="mt-4">
-            <label class="block text-sm text-black font-medium mb-1">Collaboration Type</label>
-            <div class="flex flex-wrap gap-4">
-              <div>
-                <input type="checkbox" id="content" name="collaborate_type[]" value="content" checked class="mr-2">
-                <label for="content">Content</label>
-              </div>
-              <div>
-                <input type="checkbox" id="photo" name="collaborate_type[]" value="photo" class="mr-2">
-                <label for="photo">Photo</label>
-              </div>
-              <div>
-                <input type="checkbox" id="video" name="collaborate_type[]" value="video" class="mr-2">
-                <label for="video">Video</label>
-              </div>
-              <div>
-                <input type="checkbox" id="pdf" name="collaborate_type[]" value="pdf" class="mr-2">
-                <label for="pdf">PDF</label>
-              </div>
-            </div>
-          </div>
-
-          <div id="upload-fields" class="mt-4 hidden">
-            <label class="block text-sm font-medium mb-1">Upload Files</label>
-            <div class="space-y-4">
-              <div id="upload-photo" class="hidden">
-                <input type="file" name="photo" class="block w-full border-gray-300 rounded-lg">
-              </div>
-              <div id="upload-video" class="hidden">
-                <input type="file" name="video" class="block w-full border-gray-300 rounded-lg">
-              </div>
-              <div id="upload-pdf" class="hidden">
-                <input type="file" name="pdf" class="block w-full border-gray-300 rounded-lg">
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-4">
-            <label for="message" class="block text-sm font-medium mb-1">Message</label>
-            <textarea id="message" name="message" rows="4" class="w-full border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
-          </div>
-
-          <div class="mt-4 flex items-center">
-            <input type="checkbox" id="newsletter" name="subscribed" class="mr-2">
-            <label for="newsletter" class="text-sm">Get subscribed to my newsletter.</label>
-          </div>
-
-          <div class="mt-6">
-            <button type="submit" class="w-full py-2 bg-yellow-500 text-white rounded-lg font-medium hover:bg-yellow-600">Submit</button>
-          </div>
-        </form>
-      </div>
-
-      <!-- Image Section -->
-      <div>
-        <img src="{% static 'images/contribute-image.jpg' %}" alt="Collaborate" class="rounded-lg shadow-lg">
-      </div>
+    <!-- Page Title -->
+    <div class="text-center py-8">
+        <h1 class="text-4xl md:text-5xl font-serif">Let's Collaborate</h1>
+        <hr class="my-4 border-black mx-auto w-3/4" />
     </div>
 
-    <!-- Contributors Section -->
-<div class="mt-12 bg-yellow-500 rounded-lg p-6">
-    <h2 class="text-2xl text-black text-center font-semibold mb-4">List of Contributors</h2>
-    <div class="overflow-x-auto">
-      <table class="table-auto w-full text-left  rounded-lg shadow">
-        <thead class="text-black ">
-          <tr>
-            <th class="px-4 py-2">First Name</th>
-            <th class="px-4 py-2">Last Name</th>
-            <th class="px-4 py-2">Email</th>
-          </tr> 
-        </thead>
-        <tbody>
-          {% for contributor in contributors %}
-            <tr class="border-b">
-              <td class="px-4 py-2">{{ contributor.first_name }}</td>
-              <td class="px-4 py-2">{{ contributor.last_name }}</td>
-              <td class="px-4 py-2">{{ contributor.email }}</td>
-            </tr>
-          {% empty %}
-            <tr>
-              <td colspan="3" class="text-center text-gray-500 py-4">No contributors yet.</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 py-12">
+        <div class="bg-white rounded-custom shadow-lg overflow-hidden">
+            <div class="flex flex-col md:flex-row">
+                <!-- Form Section -->
+                <div class="md:w-1/2 p-8 md:p-12">
+                    <h2 class="text-3xl font-serif mb-8">Collaborate With Us</h2>
+
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <!-- Name Fields -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm mb-2">First Name</label>
+                                <input
+                                    type="text"
+                                    name="first_name"
+                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F6B352]"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label class="block text-sm mb-2">Last Name</label>
+                                <input
+                                    type="text"
+                                    name="last_name"
+                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F6B352]"
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <!-- Email Field -->
+                        <div>
+                            <label class="block text-sm mb-2">Email ID</label>
+                            <input
+                                type="email"
+                                name="email"
+                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F6B352]"
+                                required
+                            />
+                        </div>
+
+                        <!-- File Uploads -->
+                        <div>
+                            <label class="block text-sm mb-2">Upload Files:</label>
+                            <div class="flex flex-col space-y-4">
+                                <div class="flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        name="upload_pdf"
+                                        id="pdf"
+                                        class="mr-2"
+                                    />
+                                    <label for="pdf">PDF Upload</label>
+                                </div>
+                                <div id="pdf-upload" class="hidden">
+                                    <input
+                                        type="file"
+                                        name="pdf"
+                                        class="mr-2"
+                                    />
+                                    <label>Upload PDF</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        name="upload_image"
+                                        id="image"
+                                        class="mr-2"
+                                    />
+                                    <label for="image">Image Upload</label>
+                                </div>
+                                <div id="image-upload" class="hidden">
+                                    <input
+                                        type="file"
+                                        name="image"
+                                        class="mr-2"
+                                    />
+                                    <label>Upload Image</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        name="upload_video"
+                                        id="video"
+                                        class="mr-2"
+                                    />
+                                    <label for="video">Video Upload</label>
+                                </div>
+                                <div id="video-upload" class="hidden">
+                                    <input
+                                        type="file"
+                                        name="video"
+                                        class="mr-2"
+                                    />
+                                    <label>Upload Video</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Message Field -->
+                        <div>
+                            <label class="block text-sm mb-2">Message</label>
+                            <textarea
+                                name="message"
+                                class="w-full px-3 py-2 border rounded-lg h-32 resize-none focus:outline-none focus:ring-2 focus:ring-[#F6B352]"
+                                required
+                            ></textarea>
+                        </div>
+
+                        <!-- Newsletter Checkbox -->
+                        <div class="flex items-center">
+                            <input
+                                type="checkbox"
+                                name="newsletter"
+                                id="newsletter"
+                                class="h-4 w-4 text-[#F6B352] focus:ring-[#F6B352] border-gray-300 rounded"
+                            />
+                            <label for="newsletter" class="ml-2 text-sm">
+                                Get subscribed to our newsletter.
+                            </label>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button
+                            type="submit"
+                            class="w-full bg-[#F6B352] text-black py-3 rounded-lg hover:bg-[#E4A853] transition-colors"
+                        >
+                            Submit
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Image Section -->
+                <div class="md:w-1/2 relative min-h-[400px] md:min-h-full">
+                    <img
+                        src="{% static 'contribute//lahaul_hp.jpg' %}"
+                        alt="Collaborate"
+                        class="object-cover w-full h-full"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <!-- Contributors List Dropdown -->
+        <div class="mt-8">
+            <button 
+                onclick="document.getElementById('contributors').classList.toggle('hidden');"
+                class="w-full bg-[#c4deff] p-4 rounded-custom2 flex justify-center items-center"
+            >
+                <h2 class="text-2xl font-bold text-center">List of Contributors</h2>
+                <svg 
+                    class="w-6 h-6 transition-transform ml-2" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+
+            <div id="contributors" class="hidden bg-[#F6B352] p-8 rounded-b-lg">
+                <div class="grid grid-cols-5 gap-4">
+                    {% for contributor in contributors %}
+                        <div class="text-black">
+                            {{ contributor.first_name }} {{ contributor.last_name }}
+                        </div>
+                    {% empty %}
+                        <div class="col-span-5 text-center text-black">
+                            No contributors yet.
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  
-  </div>
-</section>
+
+    {% include 'footer.html' %}
 </main>
 
+
 <script>
-  // Show/hide file upload fields based on selected checkboxes
-  const checkboxes = document.querySelectorAll('input[type="checkbox"][name="collaborate_type[]"]');
-  const uploadFields = document.getElementById('upload-fields');
-  checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', () => {
-      uploadFields.classList.toggle('hidden', !Array.from(checkboxes).some(cb => cb.checked && cb.id !== 'content'));
-      document.getElementById(`upload-${checkbox.id}`).classList.toggle('hidden', !checkbox.checked);
-    });
-  });
+    // Toggle visibility for file upload fields based on checkboxes
+    const pdfCheckbox = document.getElementById('pdf');
+    const pdfUpload = document.getElementById('pdf-upload');
+    pdfCheckbox.addEventListener('change', () => pdfUpload.classList.toggle('hidden', !pdfCheckbox.checked));
+
+    const imageCheckbox = document.getElementById('image');
+    const imageUpload = document.getElementById('image-upload');
+    imageCheckbox.addEventListener('change', () => imageUpload.classList.toggle('hidden', !imageCheckbox.checked));
+
+    const videoCheckbox = document.getElementById('video');
+    const videoUpload = document.getElementById('video-upload');
+    videoCheckbox.addEventListener('change', () => videoUpload.classList.toggle('hidden', !videoCheckbox.checked));
 </script>
+
 {% endblock %}

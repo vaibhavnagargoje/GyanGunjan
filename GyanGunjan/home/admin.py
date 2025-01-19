@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import Thematic
 from .models import LandingImages,LandingPageData,Movie,CoffeeTableBook
 from .models import State,Region,Flipbook
+from.models import AboutProject
 
 # Register your models here.
 
@@ -28,6 +29,8 @@ admin.site.register(State)
 admin.site.register(Region)
 admin.site.register(Flipbook)
 
+
+admin.site.register(AboutProject)
 
 
 

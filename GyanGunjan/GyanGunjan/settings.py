@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home',
     'contribute',
+    'rest_framework',
 
 
     'tailwind',

@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main class="min-h-screen bg-white transition-all duration-1000">
+ 
+
+  <!-- Main container with padding -->
+  <div class="container mx-auto px-4 md:px-6 py-12">
+    <div class="max-w-5xl mx-auto space-y-16">
+      <!-- Page title -->
+      <h1 class="text-3xl md:text-4xl font-bold text-[#7A2631]">
+        {{ about_project.title }}
+      </h1>
+
+      <!-- Project tag -->
+      <div class="inline-block w-full">
+        <span class="bg-[#E7B24B] text-black font-bold px-2 md:px-12 py-6 rounded-custom2 text-2xl">
+          {{ about_project.tag }}
+        </span>
+      </div>
+
+      <!-- Image slider section -->
+      <div>
+        <div class="rounded-custom overflow-hidden relative h-[550px]">
+            {% for image in landing_images %}
+              <div class="absolute inset-0 transition-opacity duration-500 opacity-0">
+                <img src="{{ image.image.url }}" alt="{{ image.alt }}" class="object-cover w-full h-full">
+              </div>
+            {% endfor %}
+          </div>
+           
+
+        <!-- Slider navigation dots -->
+        <div class="flex justify-center gap-3 mt-6">
+          {% for image in landing_images.images %}
+            <button onclick="setCurrentSlide({{ forloop.counter0 }})" class="h-2 w-2 rounded-full transition-colors {% if forloop.counter0 == current_slide %}bg-[#9B2C2C]{% else %}bg-gray-300{% endif %}"></button>
+          {% endfor %} 
+        </div>
+      </div>
+
+      <!-- Content section -->
+      <div class=" mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="text-black">
+            <p>
+              {{ about_project.description_left }}
+            </p>
+          </div>
+          <div class="text-black">
+            <p>
+              {{ about_project.description_right }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional content -->
+      <div class="inline-block w-full">
+        <span class="bg-[#E7B24B] text-black font-bold px-4 md:px-20 py-6 rounded-custom2 text-2xl">
+          Gyan Gunjan Logo 
+        </span>
+      </div>
+      <img src="{{ about_project.logo_image.url }}" alt="Gyan Gunjan Logo Concept" class="object-contain w-full">
+    </div>
+  </div>
+
+  <!-- Footer -->
+  {% include "footer.html" %}
+</main>
+
+
+
+<script>
+    // Initialize slider variables
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.rounded-custom .absolute');
+    const totalSlides = slides.length;
+  
+    // Function to update the slider visibility
+    function updateSlider() {
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('opacity-100', index === currentSlide);
+        slide.classList.toggle('opacity-0', index !== currentSlide);
+      });
+    }
+  
+    // Set the initial slide to be visible
+    function setInitialSlide() {
+      updateSlider(); // Ensure the first slide is visible
+    }
+  
+    // Automatically change slides every 2 seconds
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateSlider();
+    }, 2000);
+  
+    // Preload images to avoid blank state during load
+    const preloadImages = document.querySelectorAll('.rounded-custom img');
+    preloadImages.forEach((img) => {
+      const newImg = new Image();
+      newImg.src = img.src;
+    });
+  
+    // Initialize the slider on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      setInitialSlide();
+    });
+  </script>
+  
+  
+{% endblock %}
