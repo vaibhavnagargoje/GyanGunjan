@@ -10,6 +10,8 @@ class Contribute(models.Model):
     email = models.EmailField(max_length=150)
     subscribed = models.BooleanField(default=False)
     message = models.TextField()
+    is_approved = models.BooleanField(default=False)
+    
 
     # File fields for different media types
     photo = models.ImageField(upload_to='Contribute/Photos/', null=True, blank=True)
