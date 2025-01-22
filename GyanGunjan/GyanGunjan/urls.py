@@ -21,8 +21,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('home.urls')),
-    path('contribute/',include('contribute.urls')),
+    path('', include('home.urls')),  # Include home app URLs
+     path('contribute/', include('contribute.urls')),  # Include contribute app URLs
 
     #only for development perpose for hot reloading on browser not for deployment
     path("__reload__/", include("django_browser_reload.urls")),

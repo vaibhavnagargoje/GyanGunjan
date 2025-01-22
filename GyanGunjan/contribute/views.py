@@ -1,34 +1,13 @@
-from django.shortcuts import render, redirect
-
+from rest_framework import generics
 from .models import Contribute
+from .serializers import ContributeSerializer
 
-# Create your views here.
+# API view to list all contributions or create a new one
+class ContributeListCreateView(generics.ListCreateAPIView):
+    queryset = Contribute.objects.all()
+    serializer_class = ContributeSerializer
 
-
-
-def Contribute_view(request):
-
-    if request.method == "POST":
-        first_name = request.POST.get("first_name")
-        last_name = request.POST.get("last_name")
-        email = request.POST.get("email")
-        subscribed = request.POST.get("subscribed") == "on"
-        message = request.POST.get("message")
-        photo = request.FILES.get("photo")
-        video = request.FILES.get("video")
-        pdf = request.FILES.get("pdf")
-
-        Contribute.objects.create(
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
-            subscribed=subscribed,
-            message=message,
-            photo=photo,
-            video=video,
-            pdf=pdf,
-        )
-        return redirect("success_page")  # Replace with your success page URL
-
-    contributors = Contribute.objects.all()
-    return render(request,"contribute/contribute.html",{"contributors": contributors})
+# API view to retrieve, update, or delete a specific contribution
+class ContributeDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Contribute.objects.all()
+    serializer_class = ContributeSerializer

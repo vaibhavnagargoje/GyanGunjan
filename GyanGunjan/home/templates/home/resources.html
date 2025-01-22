@@ -1,127 +1,137 @@
+{% block content %}
 {% load static %}
+
 <section class="py-8 md:py-12 lg:py-16">
-  <div class="container mx-auto px-4">
-    <h2 class="text-2xl md:text-3xl lg:text-4xl font-serif text-[#9B2C2C] mb-8">Resources</h2>
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#7A2631]">Resources</h2>
+            <a href="#" class="text-black hover:text-gray-900 text-sm sm:text-base border border-black px-4 py-2 rounded-custom2 hover:bg-gray-50 transition-colors">
+                View All
+            </a>
+        </div>
 
-    <!-- Tabs -->
-    <div class="mb-8">
-      <div class="flex flex-wrap gap-2 bg-[#FDF6E9] p-3 shadow-sm rounded-custom">
-        {% for tab in tabs %}
-          <a
-            href="?active_tab={{ tab }}"
-            class="px-12 py-3 rounded-custom transition-colors {% if active_tab == tab %}bg-[#E4A853] text-black{% else %}text-gray-700 hover:bg-[#E4A853] hover:text-black{% endif %}"
-          >
-            {% if tab == 'thematic' %}
-              <span class="icon book"></span>
-            {% elif tab == 'coffee' %}
-              <span class="icon coffee"></span>
-            {% elif tab == 'regional' %}
-              <span class="icon globe"></span>
-            {% elif tab == 'movies' %}
-              <span class="icon video"></span>
-            {% endif %}
-            {{ tab|capfirst }}
-            {% if tab == 'thematic' %} Concept Notes {% elif tab == 'coffee' %} Table Books {% elif tab == 'regional' %} Flip Books {% endif %}
-          </a>
-        {% endfor %}
-      </div>
-    </div>
+        <div class="mb-8">
+            <div class="flex flex-wrap gap-2 bg-[#FAF3E0] p-1 rounded-custom2">
+                {% for tab in tabs %}
+                <a href="javascript:void(0)"
+                   data-tab="{{ tab }}"
+                   class="tab-link px-6 py-3 rounded-custom2 transition-colors {% if active_tab == tab %} bg-[#E4A853] text-black {% else %} text-gray-700 hover:bg-[#E4A853] hover:text-black {% endif %}">
+                    {% if tab == 'thematic' %}
+                        <img src="{% static 'images/book-icon.svg' %}"  class="w-4 h-4 inline mr-2" />Concept Notes
+                    {% elif tab == 'coffee' %}
+                        <img src="{% static 'images/coffee-icon.svg' %}"  class="w-4 h-4 inline mr-2" />Coffee Table Books
 
-    <!-- Thematic Resources -->
-    {% if active_tab == 'thematic' %}
+                    {% elif tab == 'regional' %}
+                        <img src="{% static 'images/globe-icon.svg' %}"  class="w-4 h-4 inline mr-2" /> Regional Flip Books
+                    {% elif tab == 'movies' %}
+                        <img src="{% static 'images/video-icon.svg' %}" gh class="w-4 h-4 inline mr-2" />Movies
+                    {% endif %}
+              
+                    
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Thematic Tab -->
+        <div id="thematic-tab" class="tab-content {% if active_tab == 'thematic' %} block {% else %} hidden {% endif %}">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                {% for resource in thematic_resources %}
+                    <div class="group overflow-hidden border rounded-custom2 transition-transform duration-300 hover:scale-105 cursor-pointer">
+                        <div class="p-0">
+                            <img src="{{ resource.cover_picture.url }}" alt="{{ resource.headline }}" class="w-full h-auto object-cover transition-opacity duration-300 group-hover:opacity-90" />
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Coffee Table Books Tab -->
+<div id="coffee-tab" class="tab-content {% if active_tab == 'coffee' %} block {% else %} hidden {% endif %}">
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-    {% for resource in thematic_resources %}
-      <div class="group overflow-hidden border rounded-lg transition-transform duration-300 hover:scale-105 cursor-pointer">
-        <div class="p-2 bg-white">
-          <div class="flex gap-2">
-            <img src="{% static 'images/icon1.png' %}" alt="Icon" class="rounded-full" width="20" height="20" />
-            <img src="{% static 'images/icon2.png' %}" alt="Icon" class="rounded-full" width="20" height="20" />
-          </div>
-        </div>
-        <div class="relative w-full h-[200px] overflow-hidden">
-          <img
-            src="{{ resource.cover_picture.url }}"
-            alt="{{ resource.name }}"
-            class="w-full h-full object-cover transition-all duration-300 group-hover:opacity-90"
-          />
-        </div>
-        <div class="p-2 text-center font-medium">{{ resource.headline }}</div>
-      </div>
-    {% empty %}
-      <p class="text-center text-gray-500">No thematic resources available.</p>
-    {% endfor %}
-  </div>
-{% endif %}
-
-
-    <!-- Regional Resources -->
-    {% if active_tab == 'regional' %}
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-        <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-          <select class="w-full sm:w-[200px] text-black bg-white border border-gray-300 rounded-md px-3 py-2">
-            <option value="">Choose State</option>
-            <option value="assam">Assam</option>
-            <option value="bihar">Bihar</option>
-            <option value="gujarat">Gujarat</option>
-          </select>
-          <select class="w-full sm:w-[200px] text-black bg-white border border-gray-300 rounded-md px-3 py-2">
-            <option value="">Choose Region</option>
-            <option value="upper">Upper Region</option>
-            <option value="lower">Lower Region</option>
-            <option value="central">Central Region</option>
-          </select>
-        </div>
-        <button class="text-gray-600 hover:text-gray-900 w-full sm:w-auto text-center sm:text-left font-['EB_Garamond']">View All</button>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-        {% for resource in regional_resources %}
-          <div class="group overflow-hidden border rounded-lg transition-transform duration-300 hover:scale-105 cursor-pointer">
-            <div class="p-2 bg-white">
-              <div class="flex gap-2">
-                <img src="{% static 'images/icon1.png' %}" alt="Icon" class="rounded-full" width="20" height="20" />
-                <img src="{% static 'images/icon2.png' %}" alt="Icon" class="rounded-full" width="20" height="20" />
+      {% for book in coffee_table_books %}
+          <div class="group overflow-hidden border rounded-custom4 transition-transform duration-300 hover:scale-105 cursor-pointer">
+              <div class="p-0">
+                  {% if book.cover_image %}
+                      <img src="{{ book.cover_image.url }}" alt="{{ book.coffee_table_book_name }}" class="w-full h-auto object-cover transition-opacity duration-300 group-hover:opacity-90" />
+                  {% else %}
+                      <div class="bg-gray-200 w-full h-48 flex items-center justify-center text-gray-500">
+                          No Image Available
+                      </div>
+                  {% endif %}
               </div>
-            </div>
-            <div class="p-0">
-              <img
-                src="{{ resource.image }}"
-                alt="{{ resource.title }}"
-                class="w-full h-auto object-cover transition-opacity duration-300 group-hover:opacity-90"
-              />
-            </div>
-          </div>
-        {% empty %}
-          <p class="text-center text-gray-500">No regional resources available.</p>
-        {% endfor %}
-      </div>
-    {% endif %}
-
-    <!-- Movie Resources -->
-    {% if active_tab == 'movies' %}
-      <div class="relative w-full max-w-7xl mx-auto px-2 sm:px-4">
-        <div class="flex justify-end mb-4 sm:mb-6">
-          <button class="text-gray-600 hover:text-gray-900 font-['EB_Garamond'] text-sm sm:text-base">View All</button>
-        </div>
-        <div class="relative h-[400px] sm:h-[400px] overflow-hidden">
-          <div class="absolute inset-0 flex items-center justify-center">
-            {% for movie in movie_resources %}
-              <div class="absolute transition-all duration-500 ease-in-out" style="transform: translateX(-50%) scale(1);">
-                <div class="relative group">
-                  <div class="w-[280px] sm:w-[480px] lg:w-[640px] aspect-video rounded-lg overflow-hidden">
-                    <img
-                      src="{{ movie.image }}"
-                      alt="Movie {{ forloop.counter }}"
-                      class="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
+              <div class="p-4">
+                  <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ book.coffee_table_book_name }}</h3>
+                  <p class="text-sm text-gray-600 mb-4">{{ book.description }}</p>
+                  <a href="{{ book.book_pdf.url }}" target="_blank" class="text-[#E4A853] font-medium hover:underline">
+                      View PDF
+                  </a>
               </div>
-            {% empty %}
-              <p class="text-center text-gray-500">No movie resources available.</p>
-            {% endfor %}
           </div>
-        </div>
-      </div>
-    {% endif %}
+      {% endfor %}
   </div>
+</div>
+
+        <!-- Movies Tab -->
+        <div id="movies-tab" class="tab-content {% if active_tab == 'movies' %} block {% else %} hidden {% endif %}">
+            <div class="flex justify-end mb-4 sm:mb-6">
+                <a href="#" class="text-gray-600 hover:text-gray-900 text-sm sm:text-base">
+                    View All
+                </a>
+            </div>
+            <div class="movie-slider">
+                {% for movie in movie_resources %}
+                    <div class="movie-item">
+                        <img src="{% static 'Phillosphy/P1.svg' %}" alt="{{ movie.name }}" />
+                        {% if movie.is_youtube_movie %}
+                            <iframe src="{{ movie.movie_source }}" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        {% else %}
+                            <video width="560" height="315" controls>
+                                <source src="{{ movie.movie_source }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Flipbooks Tab (for regional) -->
+        <div id="regional-tab" class="tab-content {% if active_tab == 'regional' %} block {% else %} hidden {% endif %}">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                {% for flipbook in flipbooks %}
+                    <div class="group overflow-hidden border rounded-lg transition-transform duration-300 hover:scale-105 cursor-pointer">
+                        <div class="p-0">
+                            <img src="{{ flipbook.file.url }}" alt="{{ flipbook.title }}" class="w-full h-auto object-cover transition-opacity duration-300 group-hover:opacity-90" />
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
 </section>
+
+<script>
+    // JavaScript to handle tab switching
+    document.addEventListener('DOMContentLoaded', () => {
+        const tabLinks = document.querySelectorAll('.tab-link');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                const targetTab = link.dataset.tab;
+
+                // Remove active state from all links and tabs
+                tabLinks.forEach(link => link.classList.remove('bg-[#E4A853]', 'text-black'));
+                tabContents.forEach(content => content.classLis t.add('hidden'));
+
+                // Add active state to the selected link and tab
+                link.classList.add('bg-[#E4A853]', 'text-black');
+                document.getElementById(`${targetTab}-tab`).classList.remove('hidden');
+            });
+        });
+    });
+</script>
+
+{% endblock %}

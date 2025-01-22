@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'home',
     'contribute',
     'rest_framework',
@@ -53,12 +54,29 @@ INSTALLED_APPS = [
 ]
 
 
+
+# Optional: Add DRF settings for global configuration
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',  # Allow anyone to access the API
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',  # Parse JSON data
+        'rest_framework.parsers.MultiPartParser',  # Parse file uploads
+    ],
+}
+
+
+
+
 TAILWIND_APP_NAME='theme'
 INTERNAL_IPS=['127.0.0.1']
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
 
-
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Replace with your Next.js frontend URL
+]
 
 
 
@@ -73,7 +91,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # allowd for post request form another ip/port/server
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True   # for allowing cros origin for post request form another request
 
 ROOT_URLCONF = 'GyanGunjan.urls'
 
