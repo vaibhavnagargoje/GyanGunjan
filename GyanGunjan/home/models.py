@@ -97,7 +97,7 @@ class JeevanDarshanImage(models.Model):
         return f"{self.section.section_title} - {self.image_title}"
     
 
-    
+
 
 
 class Thematic(models.Model):
@@ -113,6 +113,8 @@ class Thematic(models.Model):
 class Movie(models.Model):
     name = models.CharField(max_length=255, help_text="Enter the name of the movie")
     description = models.TextField(blank=True, help_text="A short description of the movie")
+    is_landing_movie = models.BooleanField(default=False, help_text="Check if this movie is for the landing page")
+    is_recommended = models.BooleanField(default=False, help_text="Check if this movie is recommended")
     youtube_link = models.URLField(
         blank=True, 
         null=True, 
