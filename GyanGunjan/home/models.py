@@ -115,6 +115,7 @@ class Movie(models.Model):
     description = models.TextField(blank=True, help_text="A short description of the movie")
     is_landing_movie = models.BooleanField(default=False, help_text="Check if this movie is for the landing page")
     is_recommended = models.BooleanField(default=False, help_text="Check if this movie is recommended")
+    is_short_film = models.BooleanField(default=False, help_text="Check if this movie is a short film")
     youtube_link = models.URLField(
         blank=True, 
         null=True, 
