@@ -215,3 +215,22 @@ class AboutProject(models.Model):
     description_right = models.TextField()
     logo_image = models.ImageField(upload_to="about_project/")
 
+from django.db import models
+
+class AboutProject(models.Model):
+    title = models.CharField(max_length=200)
+    tag = models.CharField(max_length=100, blank=True, null=True)
+    description_left = models.TextField()
+    description_right = models.TextField()
+    logo_image = models.ImageField(upload_to="about_project/")
+
+    def __str__(self):
+        return self.title
+
+class AboutProjectImage(models.Model):
+    about_project = models.ForeignKey(AboutProject, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="about_project/images/")
+    alt_text = models.CharField(max_length=200, blank=True, null=True)
+
+    def __str__(self):
+        return f"Image for {self.about_project.title}"

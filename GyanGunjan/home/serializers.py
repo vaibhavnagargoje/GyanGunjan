@@ -91,7 +91,23 @@ class FlipbookSerializer(serializers.ModelSerializer):
         model = Flipbook
         fields = ['id', 'title', 'description', 'state', 'region', 'file']
 
+
+
+
+
+
+# serilizers for about project
+from rest_framework import serializers
+from .models import AboutProject, AboutProjectImage
+
+class AboutProjectImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AboutProjectImage
+        fields = ['id', 'image', 'alt_text']
+
 class AboutProjectSerializer(serializers.ModelSerializer):
+    images = AboutProjectImageSerializer(many=True, read_only=True)  # Nested serializer for images
+
     class Meta:
         model = AboutProject
-        fields = ['id', 'title', 'tag', 'description_left', 'description_right', 'logo_image']
+        fields = ['id', 'title', 'tag', 'description_left', 'description_right', 'logo_image', 'images']

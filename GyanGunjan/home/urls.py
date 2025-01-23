@@ -51,4 +51,6 @@ urlpatterns = [
     # About Project API
     path('api/about-project/', AboutProjectListCreateView.as_view(), name='about-project-list-create'),
     path('api/about-project/<int:pk>/', AboutProjectDetailView.as_view(), name='about-project-detail'),
+
+
 ]
