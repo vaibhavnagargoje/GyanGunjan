@@ -155,8 +155,6 @@ class Movie(models.Model):
 
 
 
-from django.db import models
-
 class CoffeeTableBook(models.Model):
     coffee_table_book_name = models.CharField(max_length=200)
     description = models.TextField()
@@ -167,7 +165,6 @@ class CoffeeTableBook(models.Model):
         return self.coffee_table_book_name
 
 
-from django.db import models
 
 
 class State(models.Model):
@@ -195,6 +192,7 @@ class Flipbook(models.Model):
     state = models.ForeignKey(State, on_delete=models.CASCADE, related_name="flipbooks")
     region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name="flipbooks", null=True, blank=True)
     file = models.FileField(upload_to="flipbooks/")
+    cover_image = models.ImageField(upload_to="flipbooks/covers/",blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -209,14 +207,7 @@ class Flipbook(models.Model):
 
 # about project model class
 
-class AboutProject(models.Model):
-    title = models.CharField(max_length=200)
-    tag = models.CharField(max_length=100)
-    description_left = models.TextField()
-    description_right = models.TextField()
-    logo_image = models.ImageField(upload_to="about_project/")
 
-from django.db import models
 
 class AboutProject(models.Model):
     title = models.CharField(max_length=200)
