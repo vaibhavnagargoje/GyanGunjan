@@ -101,6 +101,21 @@ class JeevanDarshanImage(models.Model):
 
 
 class Thematic(models.Model):
+    SECTION_CHOICES = [
+        ('All', 'All'),
+        ('Nature_and_Agriculture', 'Nature_and_Agriculture'),
+        ('Families_Communities_and_Social_Structure', 'Families_Communities_and_Social_Structure'),
+        ('Art_Heritage_Cultural_Richness', 'Art_Heritage_Cultural_Richness'),
+        ('Economy_Society_Local_Administration', 'Economy_Society_Local_Administration'),
+        ('Knowledge and Learning', 'Knowledge and Learning'),
+    ]
+    section_type = models.CharField(
+        max_length=200,
+        choices=SECTION_CHOICES,
+        unique=True,
+        default='All',
+        help_text="Select the Philosophy type for Themetic  (e.g., Iks Gyan Gunjan) "
+    )
     name = models.CharField(max_length=200)
     headline = models.CharField(max_length=255)
     cover_picture = models.ImageField(upload_to="Thematic/")

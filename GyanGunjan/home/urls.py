@@ -53,4 +53,7 @@ urlpatterns = [
     path('api/about-project/<int:pk>/', AboutProjectDetailView.as_view(), name='about-project-detail'),
 
 
+
+
+
 ]

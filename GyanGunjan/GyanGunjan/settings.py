@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'home',
     'contribute',
+    'search',
     'rest_framework',
 
 

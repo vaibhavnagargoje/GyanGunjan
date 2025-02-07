@@ -1,0 +1,21 @@
+{% extends "search/base.html" %}
+
+{% block content %}
+<div class="results-container">
+    {% if results %}
+        <p>Found {{ results|length }} results for "{{ query }}"</p>
+        {% for result in results %}
+        <div class="result-item">
+            <h3>{{ result.document.title }}</h3>
+            <div class="score">Relevance score: {{ result.score|floatformat:3 }}</div>
+            <div class="preview">
+                {{ result.document.content|truncatewords:50 }}
+            </div>
+            <a href="{{ result.document.file.url }}" target="_blank">Open PDF</a>
+        </div>
+        {% endfor %}
+    {% elif query %}
+        <p>No results found for "{{ query }}"</p>
+    {% endif %}
+</div>
+{% endblock %}
