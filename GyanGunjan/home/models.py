@@ -67,16 +67,29 @@ class LandingImage(models.Model):
 
 
 #jeevan darshan models 
+
 class JeevanDarshanSection(models.Model):
-    section_title = models.CharField(max_length=200, help_text="Main title of the section")
-    section_description = models.TextField(help_text="Main description of the section")
+    title = models.CharField(
+        max_length=200,
+        help_text="Main title of the section"
+    )
+    short_description = models.TextField(
+        help_text="Short description for homepage display"
+    )
+    left_description = models.TextField(
+        help_text="Left side description for the philosophy"
+    )
+    right_description = models.TextField(
+        help_text="Right side description for the philosophy"
+    )
 
     class Meta:
         verbose_name = "Jeevan Darshan Section"
-        verbose_name_plural = "Jeevan Darshan Section"
+        verbose_name_plural = "Jeevan Darshan Sections"
 
     def __str__(self):
-        return self.section_title
+        return self.title
+
 
 class JeevanDarshanImage(models.Model):
     section = models.ForeignKey(
@@ -85,37 +98,29 @@ class JeevanDarshanImage(models.Model):
         related_name='images',
         help_text="Associated Jeevan Darshan section"
     )
-    image = models.ImageField(upload_to='jeevan_darshan/')
-    image_title = models.CharField(max_length=200, help_text="Title for this image")
-    image_description = models.TextField(help_text="Description for this image")
+    title = models.CharField(
+        max_length=200,
+        help_text="Title for the philosophy/image"
+    )
+    short_description = models.TextField(
+        help_text="Short description for homepage display"
+    )
+    image = models.ImageField(
+        upload_to='jeevan_darshan/',
+        help_text="Image for the philosophy"
+    )
 
     class Meta:
         verbose_name = "Jeevan Darshan Image"
         verbose_name_plural = "Jeevan Darshan Images"
+        ordering = ['id']  # Adjust ordering as needed
 
     def __str__(self):
-        return f"{self.section.section_title} - {self.image_title}"
-    
-
+        return self.title
 
 
 
 class Thematic(models.Model):
-    SECTION_CHOICES = [
-        ('All', 'All'),
-        ('Nature_and_Agriculture', 'Nature_and_Agriculture'),
-        ('Families_Communities_and_Social_Structure', 'Families_Communities_and_Social_Structure'),
-        ('Art_Heritage_Cultural_Richness', 'Art_Heritage_Cultural_Richness'),
-        ('Economy_Society_Local_Administration', 'Economy_Society_Local_Administration'),
-        ('Knowledge and Learning', 'Knowledge and Learning'),
-    ]
-    section_type = models.CharField(
-        max_length=200,
-        choices=SECTION_CHOICES,
-        unique=True,
-        default='All',
-        help_text="Select the Philosophy type for Themetic  (e.g., Iks Gyan Gunjan) "
-    )
     name = models.CharField(max_length=200)
     headline = models.CharField(max_length=255)
     cover_picture = models.ImageField(upload_to="Thematic/")

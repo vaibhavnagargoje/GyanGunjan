@@ -38,26 +38,19 @@ class LandingImageAdmin(admin.ModelAdmin):
 
 
 
-# jeevan darshan models
+
 from django.contrib import admin
 from .models import JeevanDarshanSection, JeevanDarshanImage
 
-class JeevanDarshanImageInline(admin.TabularInline):
-    model = JeevanDarshanImage
-    extra = 5  # Shows exactly 5 image fields (for your 5 images)
-    max_num = 5  # Maximum allowed images
-    min_num = 5  # Minimum required images
-
 @admin.register(JeevanDarshanSection)
 class JeevanDarshanSectionAdmin(admin.ModelAdmin):
-    inlines = [JeevanDarshanImageInline]
-    list_display = ('section_title',)
-    
+    list_display = ('title', 'short_description', 'left_description', 'right_description')
+    search_fields = ('title',)
+
 @admin.register(JeevanDarshanImage)
 class JeevanDarshanImageAdmin(admin.ModelAdmin):
-    list_display = ('image_title', 'section')
-    list_filter = ('section',)
-
+    list_display = ('title', 'section', 'short_description')
+    search_fields = ('title', 'section__title')
 
 
 

@@ -24,16 +24,16 @@ class LandingPageSectionDetail(generics.RetrieveAPIView):
 
 
 #jevan darshan
-from rest_framework import generics
 from .models import JeevanDarshanSection
 from .serializers import JeevanDarshanSectionSerializer
 
-class JeevanDarshanSectionView(generics.RetrieveAPIView):
+class JeevanDarshanSectionView(generics.ListAPIView):
+    queryset = JeevanDarshanSection.objects.prefetch_related('images').all()
     serializer_class = JeevanDarshanSectionSerializer
-    
-    def get_object(self):
-        # Get the first instance (assuming single section)
-        return JeevanDarshanSection.objects.first()
+
+
+
+
 
 
 # Thematic API

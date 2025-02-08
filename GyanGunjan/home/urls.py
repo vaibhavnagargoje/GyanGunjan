@@ -20,7 +20,7 @@ urlpatterns = [
 
     # Jeevan Darshan API
     path('api/jeevan-darshan/', JeevanDarshanSectionView.as_view(), name='jeevan-darshan'),
-    # hero section apis 
+     
 
 
 

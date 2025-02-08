@@ -34,12 +34,13 @@ class LandingPageSectionSerializer(serializers.ModelSerializer):
 from rest_framework import serializers
 from .models import JeevanDarshanSection, JeevanDarshanImage
 
+# serializers.py
 class JeevanDarshanImageSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
 
     class Meta:
         model = JeevanDarshanImage
-        fields = ['image_url', 'image_title', 'image_description']
+        fields = ['image_url', 'title', 'short_description']  # Updated field names
 
     def get_image_url(self, obj):
         return self.context['request'].build_absolute_uri(obj.image.url)
@@ -49,7 +50,12 @@ class JeevanDarshanSectionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = JeevanDarshanSection
-        fields = ['section_title', 'section_description', 'images']
+        fields = ['title', 'short_description', 'left_description', 'right_description', 'images']  # Added all fields
+
+
+
+
+
 
 
 
