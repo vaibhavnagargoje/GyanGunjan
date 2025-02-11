@@ -20,21 +20,19 @@ urlpatterns = [
 
     # Jeevan Darshan API
     path('api/jeevan-darshan/', JeevanDarshanSectionView.as_view(), name='jeevan-darshan'),
-     
-
 
 
     # Thematic API
     path('api/thematic/', ThematicListCreateView.as_view(), name='thematic-list-create'),
     path('api/thematic/<int:pk>/', ThematicDetailView.as_view(), name='thematic-detail'),
 
-    # Movie API
-    path('api/movies/', MovieListCreateView.as_view(), name='movie-list-create'),
-    path('api/movies/<int:pk>/', MovieDetailView.as_view(), name='movie-detail'),
-
     # Coffee Table Book API
     path('api/coffee-table-books/', CoffeeTableBookListCreateView.as_view(), name='coffee-table-book-list-create'),
     path('api/coffee-table-books/<int:pk>/', CoffeeTableBookDetailView.as_view(), name='coffee-table-book-detail'),
+
+    # Movie API
+    path('api/movies/', MovieListCreateView.as_view(), name='movie-list-create'),
+    path('api/movies/<int:pk>/', MovieDetailView.as_view(), name='movie-detail'),
 
     # State API
     path('api/states/', StateListCreateView.as_view(), name='state-list-create'),

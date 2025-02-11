@@ -30,52 +30,58 @@ class LandingPageSectionSerializer(serializers.ModelSerializer):
 
 
 
-#for jeevan darshan
-from rest_framework import serializers
-from .models import JeevanDarshanSection, JeevanDarshanImage
 
-# serializers.py
+from rest_framework import serializers
+from .models import JeevanDarshanSection, JeevanDarshanImage, CoffeeTableBook, Thematic
+
 class JeevanDarshanImageSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
 
     class Meta:
         model = JeevanDarshanImage
-        fields = ['image_url', 'title', 'short_description']  # Updated field names
+        fields = ['image_url', 'title', 'short_description']
 
     def get_image_url(self, obj):
-        return self.context['request'].build_absolute_uri(obj.image.url)
+        request = self.context.get('request')
+        return request.build_absolute_uri(obj.image.url) if obj.image else None
+
+class CoffeeTableBookSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CoffeeTableBook
+        fields = ['id','coffee_table_book_name', 'description', 'book_pdf', 'cover_image']
+
+   
+
+   
+
+class ThematicSerializer(serializers.ModelSerializer):
+    
+
+    class Meta:
+        model = Thematic
+        fields = ['id','name', 'headline', 'cover_picture','book_pdf']
 
 class JeevanDarshanSectionSerializer(serializers.ModelSerializer):
     images = JeevanDarshanImageSerializer(many=True, read_only=True)
+    coffee_table_book = CoffeeTableBookSerializer(source='related_coffee_table_book', read_only=True)
+    thematic = ThematicSerializer(source='related_thematic', read_only=True)
 
     class Meta:
         model = JeevanDarshanSection
-        fields = ['title', 'short_description', 'left_description', 'right_description', 'images']  # Added all fields
+        fields = [
+            'title', 'short_description', 'left_description', 'right_description',
+            'images', 'coffee_table_book', 'thematic'
+        ]
 
 
 
-
-
-
-
-
-
-
-
-class ThematicSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Thematic
-        fields = ['id', 'name', 'headline', 'cover_picture']
 
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = ['id', 'name', 'description', 'youtube_link', 'uploaded_movie','movie_thumbnail']
 
-class CoffeeTableBookSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CoffeeTableBook
-        fields = ['id', 'coffee_table_book_name', 'description', 'book_pdf', 'cover_image']
 
 class StateSerializer(serializers.ModelSerializer):
     class Meta:

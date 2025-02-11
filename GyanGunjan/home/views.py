@@ -24,15 +24,34 @@ class LandingPageSectionDetail(generics.RetrieveAPIView):
 
 
 #jevan darshan
+from rest_framework import generics
+from .models import JeevanDarshanSection
+from .serializers import JeevanDarshanSectionSerializer
+
+from rest_framework import generics
+from .models import JeevanDarshanSection
+from .serializers import JeevanDarshanSectionSerializer
+
+from rest_framework import generics
+from rest_framework.response import Response
 from .models import JeevanDarshanSection
 from .serializers import JeevanDarshanSectionSerializer
 
 class JeevanDarshanSectionView(generics.ListAPIView):
-    queryset = JeevanDarshanSection.objects.prefetch_related('images').all()
+    """
+    API view to return all Jeevan Darshan Sections with related Coffee Table Books and Thematic content.
+    """
     serializer_class = JeevanDarshanSectionSerializer
+    queryset = JeevanDarshanSection.objects.all()
 
-
-
+    def list(self, request, *args, **kwargs):
+        """
+        Override the list method to explicitly pass the request context
+        to the serializer so that media URLs are properly generated.
+        """
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True, context={'request': request})
+        return Response(serializer.data)
 
 
 
@@ -45,14 +64,6 @@ class ThematicDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Thematic.objects.all()
     serializer_class = ThematicSerializer
 
-# Movie API
-class MovieListCreateView(generics.ListCreateAPIView):
-    queryset = Movie.objects.all()
-    serializer_class = MovieSerializer
-
-class MovieDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Movie.objects.all()
-    serializer_class = MovieSerializer
 
 # Coffee Table Book API
 class CoffeeTableBookListCreateView(generics.ListCreateAPIView):
@@ -62,6 +73,20 @@ class CoffeeTableBookListCreateView(generics.ListCreateAPIView):
 class CoffeeTableBookDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = CoffeeTableBook.objects.all()
     serializer_class = CoffeeTableBookSerializer
+
+
+
+
+# Movie API
+class MovieListCreateView(generics.ListCreateAPIView):
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer
+
+class MovieDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer
+
+
 
 # State API
 class StateListCreateView(generics.ListCreateAPIView):

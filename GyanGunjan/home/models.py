@@ -66,21 +66,24 @@ class LandingImage(models.Model):
 
 
 
-#jeevan darshan models 
-
+# jevan darshan model class  
 class JeevanDarshanSection(models.Model):
-    title = models.CharField(
-        max_length=200,
-        help_text="Main title of the section"
+    title = models.CharField(max_length=200, help_text="Main title of the section")
+    short_description = models.TextField(help_text="Short description for homepage display")
+    left_description = models.TextField(help_text="Left side description for the philosophy")
+    right_description = models.TextField(help_text="Right side description for the philosophy")
+    
+    # Foreign Keys for related CoffeeTableBook and Thematic
+    related_coffee_table_book = models.ForeignKey(
+        'CoffeeTableBook', on_delete=models.SET_NULL, null=True, blank=True, 
+        related_name='jeevan_darshan_sections',
+        help_text="Select a related Coffee Table Book"
     )
-    short_description = models.TextField(
-        help_text="Short description for homepage display"
-    )
-    left_description = models.TextField(
-        help_text="Left side description for the philosophy"
-    )
-    right_description = models.TextField(
-        help_text="Right side description for the philosophy"
+    
+    related_thematic = models.ForeignKey(
+        'Thematic', on_delete=models.SET_NULL, null=True, blank=True, 
+        related_name='jeevan_darshan_sections',
+        help_text="Select a related Thematic book"
     )
 
     class Meta:
@@ -92,23 +95,11 @@ class JeevanDarshanSection(models.Model):
 
 
 class JeevanDarshanImage(models.Model):
-    section = models.ForeignKey(
-        JeevanDarshanSection,
-        on_delete=models.CASCADE,
-        related_name='images',
-        help_text="Associated Jeevan Darshan section"
-    )
-    title = models.CharField(
-        max_length=200,
-        help_text="Title for the philosophy/image"
-    )
-    short_description = models.TextField(
-        help_text="Short description for homepage display"
-    )
+    section = models.ForeignKey(JeevanDarshanSection,on_delete=models.CASCADE,related_name='images',help_text="Associated Jeevan Darshan section")
+    title = models.CharField(max_length=200,help_text="Title for the philosophy/image")
+    short_description = models.TextField(help_text="Short description for homepage display")
     image = models.ImageField(
-        upload_to='jeevan_darshan/',
-        help_text="Image for the philosophy"
-    )
+        upload_to='jeevan_darshan/',help_text="Image for the philosophy")
 
     class Meta:
         verbose_name = "Jeevan Darshan Image"
@@ -124,9 +115,24 @@ class Thematic(models.Model):
     name = models.CharField(max_length=200)
     headline = models.CharField(max_length=255)
     cover_picture = models.ImageField(upload_to="Thematic/")
+    book_pdf = models.FileField(upload_to='Thematic/',blank=True, null=True)
+
 
     def __str__(self):
         return self.headline
+
+
+class CoffeeTableBook(models.Model):
+    coffee_table_book_name = models.CharField(max_length=200)
+    description = models.TextField()
+    book_pdf = models.FileField(upload_to='Coffee Table Book/')
+    cover_image = models.ImageField(upload_to='Coffee Table Book/Covers/', blank=True, null=True)
+
+    def __str__(self):
+        return self.coffee_table_book_name
+
+
+
 
 
 
@@ -174,15 +180,6 @@ class Movie(models.Model):
 
 
 
-
-class CoffeeTableBook(models.Model):
-    coffee_table_book_name = models.CharField(max_length=200)
-    description = models.TextField()
-    book_pdf = models.FileField(upload_to='Coffee Table Book/')
-    cover_image = models.ImageField(upload_to='Coffee Table Book/Covers/', blank=True, null=True)
-
-    def __str__(self):
-        return self.coffee_table_book_name
 
 
 
