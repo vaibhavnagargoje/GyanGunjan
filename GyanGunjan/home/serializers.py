@@ -101,7 +101,7 @@ class FlipbookSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Flipbook
-        fields = ['id', 'title', 'description', 'state', 'region', 'file','cover_image']
+        fields = ['id', 'title', 'description', 'state', 'region', 'book_pdf','cover_image']
 
 
 

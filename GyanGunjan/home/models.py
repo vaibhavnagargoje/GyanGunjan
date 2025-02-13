@@ -125,7 +125,7 @@ class Thematic(models.Model):
 class CoffeeTableBook(models.Model):
     coffee_table_book_name = models.CharField(max_length=200)
     description = models.TextField()
-    book_pdf = models.FileField(upload_to='Coffee Table Book/')
+    book_pdf = models.FileField(upload_to='Coffee Table Book/',blank=True, null=True)
     cover_image = models.ImageField(upload_to='Coffee Table Book/Covers/', blank=True, null=True)
 
     def __str__(self):
@@ -208,7 +208,7 @@ class Flipbook(models.Model):
     description = models.TextField()
     state = models.ForeignKey(State, on_delete=models.CASCADE, related_name="flipbooks")
     region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name="flipbooks", null=True, blank=True)
-    file = models.FileField(upload_to="flipbooks/")
+    book_pdf = models.FileField(upload_to="flipbooks/",blank=True, null=True)
     cover_image = models.ImageField(upload_to="flipbooks/covers/",blank=True, null=True)
 
     def __str__(self):
