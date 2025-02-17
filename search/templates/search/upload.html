@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload PDF</title>
+</head>
+<body>
+    <h1>Upload PDF</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="pdf" accept=".pdf">
+        <button type="submit">Upload</button>
+    </form>
+    {% if success %}<p>File uploaded successfully!</p>{% endif %}
+    {% if error %}<p>Error uploading file!</p>{% endif %}
+</body>
+</html>

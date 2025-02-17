@@ -1,0 +1,115 @@
+{% load static %}
+<nav class="px-4 py-6">
+    <div class="max-w-7xl mx-auto rounded-custom bg-[#c4deff] px-4 md:px-6 py-3">
+        <div class="flex items-center justify-between">
+            <!-- Logo -->
+            <a href="/" class="flex flex-col items-start md:items-center gap-0.5 mr-auto md:w-auto">
+                <img src="{% static 'Logo/GyanGunjanLogo.png' %}" alt="Gyan Gunjan Logo" 
+                     class="object-contain w-40 md:w-56 h-32">
+            </a>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center gap-6 justify-center w-full">
+                <a href="/about-project" class="font-inter text-[#1a365d] hover:text-gray-900">About the Project</a>
+                <a href="/jeevan-darshan" class="text-[#1a365d] hover:text-gray-900">Jeevan Darshan</a>
+                <div class="relative">
+                    <button id="resources-toggle" class="flex items-center gap-1 text-[#1a365d] text-base hover:text-gray-900">
+                        Resources <span>&#9660;</span>
+                    </button>
+                    <div id="resources-menu" class="hidden dropdown-menu absolute top-full left-0 mt-3 w-48 rounded-custom shadow-lg bg-[#F6B352] ring-1 ring-black ring-opacity-5">
+                        <a href="/resources?type=Coffee Table Books" 
+                           class="block px-4 py-2 text-sm text-black hover:bg-gray-100 rounded-custom">Coffee Table Books</a>
+                        <a href="/resources?type=Regional Flip Books" 
+                           class="block px-4 py-2 text-sm text-black hover:bg-gray-100 rounded-custom">Regional Flip Books</a>
+                        <a href="/resources?type=Thematic Concept Notes" 
+                           class="block px-4 py-2 text-sm text-black hover:bg-gray-100 rounded-custom">Thematic Concept Notes</a>
+                        <a href="/movies" 
+                           class="block px-4 py-2 text-sm text-black hover:bg-gray-100 rounded-custom">Movies</a>
+                    </div>
+                </div>
+                <a href="/lets-collaborate" class="bg-[#F6B352] text-black hover:bg-[#f6a93d] rounded-custom px-4 py-1.5 font-medium">
+                    Let's Collaborate
+                </a>
+                <button class="p-1.5">
+                    <img src="{% static 'icons/search.svg' %}" alt="Search" class="h-4 w-4 text-[#1a365d]" />
+                </button>
+                <div class="relative">
+                    <button id="language-toggle" class="flex items-center gap-1 text-[#1a365d] text-base">
+                        Eng <span>&#9660;</span>
+                    </button>
+                    <div id="language-menu" class="hidden absolute top-full right-0 mt-3 w-48 rounded-custom shadow-lg bg-[#F6B352] ring-1 ring-black ring-opacity-5">
+                        <a href="#" class="block px-4 py-2 text-black hover:bg-gray-100 rounded-custom">English</a>
+                        <a href="#" class="block px-4 py-2 text-black hover:bg-gray-100 rounded-custom">Hindi</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div class="md:hidden flex items-center gap-4">
+                <button class="p-2">
+                    <img src="{% static 'icons/search.svg' %}" alt="Search" class="h-5 w-5 text-[#1a365d]" />
+                </button>
+                <button id="mobile-menu-toggle" class="p-2">
+                    <span id="mobile-menu-icon">&#9776;</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4 flex flex-col gap-4">
+            <a href="/about-project" class="text-[#1a365d] text-lg hover:text-gray-900">About the Project</a>
+            <a href="/jeevan-darshan" class="text-[#1a365d] text-lg hover:text-gray-900">Jeevan Darshan</a>
+            <button id="mobile-resources-toggle" class="flex items-center justify-between text-[#1a365d] text-lg hover:text-gray-900">
+                Resources <span>&#9660;</span>
+            </button>
+            <div id="mobile-resources-menu" class="hidden pl-4">
+                <a href="/resources?type=Coffee Table Books" class="block py-2 text-sm text-gray-700 hover:text-gray-900">Coffee Table Books</a>
+                <a href="/resources?type=Regional Flip Books" class="block py-2 text-sm text-gray-700 hover:text-gray-900">Regional Flip Books</a>
+                <a href="/resources?type=Thematic Concept Notes" class="block py-2 text-sm text-gray-700 hover:text-gray-900">Thematic Concept Notes</a>
+                <a href="/movies" class="block py-2 text-sm text-gray-700 hover:text-gray-900">Movies</a>
+            </div>
+            <a href="/lets-collaborate" class="bg-[#F6B352] text-black hover:bg-[#f6a93d] rounded-custom px-6 py-2 font-medium w-full">
+                Let's Collaborate
+            </a>
+            <button id="mobile-language-toggle" class="flex items-center justify-between text-[#1a365d] text-lg hover:text-gray-900">
+                Eng <span>&#9660;</span>
+            </button>
+            <div id="mobile-language-menu" class="hidden pl-4">
+                <a href="#" class="block py-2 text-sm text-gray-700 hover:text-gray-900">English</a>
+                <a href="#" class="block py-2 text-sm text-gray-700 hover:text-gray-900">Hindi</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-toggle').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Resources Dropdown
+        document.getElementById('resources-toggle').addEventListener('click', () => {
+            const menu = document.getElementById('resources-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Language Dropdown
+        document.getElementById('language-toggle').addEventListener('click', () => {
+            const menu = document.getElementById('language-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Mobile Resources Dropdown
+        document.getElementById('mobile-resources-toggle').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-resources-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Mobile Language Dropdown
+        document.getElementById('mobile-language-toggle').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-language-menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</nav>

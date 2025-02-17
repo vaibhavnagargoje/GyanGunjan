@@ -1,0 +1,47 @@
+{% load static %}
+<footer class="px-4 py-6">
+    <div class="max-w-7xl mx-auto rounded-custom bg-[#c4deff] px-8 py-0">
+        <div class="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-8">
+            <!-- Logos Section -->
+            <div class="flex flex-col items-center gap-0.5">
+                <div class="flex items-center gap-2">
+                    <img src="{% static 'Logo/IndianMinistry.png' %}" alt="Ministry of Education" 
+                         class="object-contain" style="width: 150px; height: auto;">
+                    <img src="{% static 'Logo/IndianKnowledgeLogo.png' %}" alt="Gyan Gunjan" 
+                         class="object-contain" style="width: 150px; height: auto;">
+                </div>
+                <div class="flex items-center -mt-6 gap-2">
+                    <img src="{% static 'Logo/FlameLogo.png' %}" alt="Flame University" 
+                         class="object-contain" style="width: 150px; height: auto;">
+                    <img src="{% static 'Logo/CKALogo.png' %}" alt="CKA Logo" 
+                         class="object-contain" style="width: 150px; height: auto;">
+                </div>
+            </div>
+
+            <!-- Links Section -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center justify-items-center">
+                <!-- First Column -->
+                <div class="flex flex-col gap-3 items-center">
+                    <a href="/about-project" class="text-[#1a365d] hover:text-gray-900">About the Project</a>
+                    <a href="/jeevan-darshan" class="text-[#1a365d] hover:text-gray-900">Jeevan Darshana</a>
+                    <a href="/resources" class="text-[#1a365d] hover:text-gray-900">Resources</a>
+                    <a href="/lets-collaborate" class="text-[#1a365d] hover:text-gray-900">Let's Collaborate</a>
+                </div>
+
+                <!-- Second Column -->
+                <div class="flex flex-col gap-3 items-center">
+                    <a href="/careers" class="text-[#1a365d] hover:text-gray-900">Careers</a>
+                    <a href="/contact" class="text-[#1a365d] hover:text-gray-900">Contact Us</a>
+                    <a href="/iks" class="text-[#1a365d] hover:text-gray-900">About IKS Division</a>
+                    <a href="/cka" class="text-[#1a365d] hover:text-gray-900">About CKA</a>
+                </div>
+
+                <!-- Third Column -->
+                <div class="flex flex-col gap-3 items-center">
+                    <a href="/terms" class="text-[#1a365d] hover:text-gray-900">Terms of Use</a>
+                    <a href="/license" class="text-[#1a365d] hover:text-gray-900">Creative Commons 4.0</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
