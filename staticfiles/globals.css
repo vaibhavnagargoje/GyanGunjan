@@ -1,0 +1,126 @@
+
+:root {
+  --background: #515151;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+.dropdown-menu {
+  position: absolute;
+  z-index: 1000;
+}
+
+@keyframes floatPetal {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.02);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.petal-hover:hover {
+  animation: floatPetal 1s ease-in-out infinite;
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.page-enter {
+  animation: zoomIn 0.5s ease-out;
+}
+
+.movies-swiper {
+  padding: 20px 0 40px;
+}
+
+.movies-swiper .swiper-slide {
+  opacity: 0.4;
+  transition: opacity 0.3s;
+}
+
+.movies-swiper .swiper-slide-active {
+  opacity: 1;
+}
+
+.movies-swiper .swiper-button-next,
+.movies-swiper .swiper-button-prev {
+  color: #9B2C2C;
+}
+
+.movies-swiper .swiper-pagination-bullet-active {
+  background: #9B2C2C;
+}
+
+@keyframes turnPageRight {
+  0% {
+    transform: perspective(1000px) rotateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: perspective(1000px) rotateY(-180deg);
+    opacity: 0;
+  }
+}
+
+@keyframes turnPageLeft {
+  0% {
+    transform: perspective(1000px) rotateY(180deg);
+    opacity: 0;
+  }
+  100% {
+    transform: perspective(1000px) rotateY(0);
+    opacity: 1;
+  }
+}
+
+
+
+@layer base {
+  /* Navigation elements */
+  nav {
+    @apply font-inter;
+  }
+
+  /* All headings */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-philosopher;
+  }
+
+  /* All paragraph text */
+  p {
+    @apply font-crimson-pro;
+  }
+  button{
+    @apply font-inter
+  }
+  footer{
+    @apply font-inter
+  }
+  span{
+    @apply font-philosopher
+  }
+
+}
