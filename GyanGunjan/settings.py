@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure--()%=&kf-qg5cw#mu(jt4ejb!$a0@h=p+@_nqq60+s*z46$!1+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1','localhost']
 
 
 # Application definition
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'contribute',
     'rest_framework',
     'django_filters',
+    'ckeditor',
 
 
     'tailwind',
@@ -66,8 +67,26 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.JSONParser',  # Parse JSON data
         'rest_framework.parsers.MultiPartParser',  # Parse file uploads
     ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ],
 }
 
+#ckeditor config 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 800,
+        'extraPlugins': 'font', 
+        'fontSize_sizes': '8/8px;10/10px;12/12px;14/14px;16/16px;18/18px;20/20px;24/24px;28/28px;32/32px;36/36px;40/40px;48/48px;56/56px;64/64px;',
+        'font_names': 'Arial/Arial, Helvetica, sans-serif;'
+                      'Times New Roman/Times New Roman, Times, serif;'
+                      'Courier New/Courier New, Courier, monospace;'
+                      'Georgia/Georgia, serif;'
+                      'Crimson Pro/Crimson Pro, serif;', 
+    },
+}
 
 
 
@@ -76,11 +95,35 @@ INTERNAL_IPS=['127.0.0.1']
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
 
+
+
+# Allow frontend to make authenticated requests
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Replace with your Next.js frontend URL
+    "http://143.110.251.235",  # Next.js frontend
+
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",  # Replace with your Next.js frontend URL
+    "http://143.244.132.118",  # Django backend
+    "http://143.110.251.235",  # Next.js frontend
 
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+# Authentication settings
+SESSION_COOKIE_SECURE = False  # Set to True if using HTTPS
+CSRF_COOKIE_SECURE = False  # Set to True if using HTTPS
+SESSION_COOKIE_SAMESITE = "Lax"  # Controls cookie behavior
+
+# Session/Cookie Settings
+SESSION_COOKIE_DOMAIN = 'localhost'
+CSRF_COOKIE_DOMAIN = 'localhost'
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']
 
 
 

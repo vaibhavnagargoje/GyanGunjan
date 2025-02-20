@@ -1,5 +1,7 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
+# Model 1: Landing Page Sections (Iks Gyan Gunjan, 100 Regions, Jeevan Darshan)
 # Model 1: Landing Page Sections (Iks Gyan Gunjan, 100 Regions, Jeevan Darshan)
 class LandingPageSection(models.Model):
     SECTION_CHOICES = [
@@ -18,16 +20,17 @@ class LandingPageSection(models.Model):
         max_length=200,
         help_text="Main heading for the section"
     )
-    short_description = models.TextField(
+    short_description = RichTextField(
         help_text="Brief summary (1-2 sentences)"
     )
-    long_description = models.TextField(
+    long_description = RichTextField(
         help_text="Detailed description for the section"
     )
-    additional_text = models.TextField(
+    additional_text = RichTextField(
         blank=True,
         help_text="Extra content (e.g., paragraph for Jeevan Darshan)"
     )
+    content = RichTextField()
 
     class Meta:
         verbose_name = "Landing Page Section"
@@ -64,22 +67,18 @@ class LandingImage(models.Model):
 
 
 
-
-
-# jevan darshan model class  
+# Jeevan Darshan Section
 class JeevanDarshanSection(models.Model):
     title = models.CharField(max_length=200, help_text="Main title of the section")
-    short_description = models.TextField(help_text="Short description for homepage display")
-    left_description = models.TextField(help_text="Left side description for the philosophy")
-    right_description = models.TextField(help_text="Right side description for the philosophy")
-    
-    # Foreign Keys for related CoffeeTableBook and Thematic
+    short_description = RichTextField(help_text="Short description for homepage display")
+    left_description = RichTextField(help_text="Left side description for the philosophy")
+    right_description = RichTextField(help_text="Right side description for the philosophy")
+
     related_coffee_table_book = models.ForeignKey(
         'CoffeeTableBook', on_delete=models.SET_NULL, null=True, blank=True, 
         related_name='jeevan_darshan_sections',
         help_text="Select a related Coffee Table Book"
     )
-    
     related_thematic = models.ForeignKey(
         'Thematic', on_delete=models.SET_NULL, null=True, blank=True, 
         related_name='jeevan_darshan_sections',
@@ -95,20 +94,19 @@ class JeevanDarshanSection(models.Model):
 
 
 class JeevanDarshanImage(models.Model):
-    section = models.ForeignKey(JeevanDarshanSection,on_delete=models.CASCADE,related_name='images',help_text="Associated Jeevan Darshan section")
-    title = models.CharField(max_length=200,help_text="Title for the philosophy/image")
-    short_description = models.TextField(help_text="Short description for homepage display")
+    section = models.ForeignKey(JeevanDarshanSection, on_delete=models.CASCADE, related_name='images', help_text="Associated Jeevan Darshan section")
+    title = models.CharField(max_length=200, help_text="Title for the philosophy/image")
+    short_description = RichTextField(help_text="Short description for homepage display")
     image = models.ImageField(
-        upload_to='jeevan_darshan/',help_text="Image for the philosophy")
+        upload_to='jeevan_darshan/', help_text="Image for the philosophy")
 
     class Meta:
         verbose_name = "Jeevan Darshan Image"
         verbose_name_plural = "Jeevan Darshan Images"
-        ordering = ['id']  # Adjust ordering as needed
+        ordering = ['id']
 
     def __str__(self):
         return self.title
-
 
 
 class Thematic(models.Model):
@@ -124,13 +122,12 @@ class Thematic(models.Model):
 
 class CoffeeTableBook(models.Model):
     coffee_table_book_name = models.CharField(max_length=200)
-    description = models.TextField()
-    book_pdf = models.FileField(upload_to='Coffee Table Book/',blank=True, null=True)
+    description = RichTextField()
+    book_pdf = models.FileField(upload_to='Coffee Table Book/', blank=True, null=True)
     cover_image = models.ImageField(upload_to='Coffee Table Book/Covers/', blank=True, null=True)
 
     def __str__(self):
         return self.coffee_table_book_name
-
 
 
 
@@ -203,17 +200,18 @@ class Region(models.Model):
 
 
 
+
+
 class Flipbook(models.Model):
     title = models.CharField(max_length=200)
-    description = models.TextField()
-    state = models.ForeignKey(State, on_delete=models.CASCADE, related_name="flipbooks")
-    region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name="flipbooks", null=True, blank=True)
-    book_pdf = models.FileField(upload_to="flipbooks/",blank=True, null=True)
-    cover_image = models.ImageField(upload_to="flipbooks/covers/",blank=True, null=True)
+    description = RichTextField()
+    state = models.ForeignKey('State', on_delete=models.CASCADE, related_name="flipbooks")
+    region = models.ForeignKey('Region', on_delete=models.CASCADE, related_name="flipbooks", null=True, blank=True)
+    book_pdf = models.FileField(upload_to="flipbooks/", blank=True, null=True)
+    cover_image = models.ImageField(upload_to="flipbooks/covers/", blank=True, null=True)
 
     def __str__(self):
         return self.title
-
 
 
 
@@ -223,27 +221,24 @@ class Flipbook(models.Model):
 
 
 # about project model class
-
-
-
 class AboutProject(models.Model):
     title = models.CharField(max_length=200)
     tag = models.CharField(max_length=100, blank=True, null=True)
-    description_left = models.TextField()
-    description_right = models.TextField()
+    description_left = RichTextField()
+    description_right = RichTextField()
     logo_image = models.ImageField(upload_to="about_project/")
-    first_discripton = models.TextField(blank=True, null=True)
+    first_discripton = RichTextField(blank=True, null=True)
     first_discripton_image = models.ImageField(upload_to="about_project/", blank=True, null=True)
-    long_discripton = models.TextField(blank=True, null=True)
-    second_description = models.TextField(blank=True, null=True)
+    long_discripton = RichTextField(blank=True, null=True)
+    second_description = RichTextField(blank=True, null=True)
     second_discripton_image = models.ImageField(upload_to="about_project/", blank=True, null=True)
-    third_description = models.TextField(blank=True, null=True)
+    third_description = RichTextField(blank=True, null=True)
     third_discripton_image = models.ImageField(upload_to="about_project/", blank=True, null=True)
-    fourth_description = models.TextField(blank=True, null=True)
+    fourth_description = RichTextField(blank=True, null=True)
     fourth_discripton_image = models.ImageField(upload_to="about_project/", blank=True, null=True)
-    fifth_description = models.TextField(blank=True, null=True)
+    fifth_description = RichTextField(blank=True, null=True)
     fifth_discripton_image = models.ImageField(upload_to="about_project/", blank=True, null=True)
-    sixth_description = models.TextField(blank=True, null=True)
+    sixth_description = RichTextField(blank=True, null=True)
     sixth_discripton_image = models.ImageField(upload_to="about_project/", blank=True, null=True)
 
     def __str__(self):
@@ -252,7 +247,7 @@ class AboutProject(models.Model):
 class AboutProjectImage(models.Model):
     about_project = models.ForeignKey(AboutProject, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to="about_project/images/")
-    alt_text = models.CharField(max_length=200, blank=True, null=True)
+    alt_text = RichTextField(blank=True, null=True)
 
     def __str__(self):
         return f"Image for {self.about_project.title}"
