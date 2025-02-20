@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'contribute',
     'rest_framework',
     'django_filters',
+    'ckeditor',
 
 
     'tailwind',
