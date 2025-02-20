@@ -81,6 +81,21 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 
+#ckeditor config 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 800,
+        'extraPlugins': 'font', 
+        'fontSize_sizes': '8/8px;10/10px;12/12px;14/14px;16/16px;18/18px;20/20px;24/24px;28/28px;32/32px;36/36px;40/40px;48/48px;56/56px;64/64px;',
+        'font_names': 'Arial/Arial, Helvetica, sans-serif;'
+                      'Times New Roman/Times New Roman, Times, serif;'
+                      'Courier New/Courier New, Courier, monospace;'
+                      'Georgia/Georgia, serif;'
+                      'Crimson Pro/Crimson Pro, serif;', 
+    },
+}
 
 
 
