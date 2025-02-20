@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure--()%=&kf-qg5cw#mu(jt4ejb!$a0@h=p+@_nqq60+s*z46$!1+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['143.244.132.118','127.0.0.1']
 
 
 # Application definition
@@ -73,12 +73,18 @@ REST_FRAMEWORK = {
 
 
 TAILWIND_APP_NAME='theme'
-INTERNAL_IPS=['127.0.0.1']
+INTERNAL_IPS=['143.244.132.118','127.0.0.1']
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Replace with your Next.js frontend URL
+    # "http://localhost:3000",  # Replace with your Next.js frontend URL
+   
+    "https://gg-fo96.vercel.app",
+    "https://gg-fo96-git-main-vaibhavnagargojes-projects.vercel.app",
+    "https://gg-fo96-mcxx27pek-vaibhavnagargojes-projects.vercel.app",
+
+
 ]
 
 
@@ -233,4 +239,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR,"media/")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-LOGIN_URL = '/Profile/login/'
+# LOGIN_URL = '/Profile/login/'
