@@ -103,7 +103,7 @@ NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 CORS_ALLOWED_ORIGINS = [
 
 
-
+    "http://143.110.251.235",
     "http://localhost:3000",  # Replace with your Next.js frontend URL
     "http://143.110.251.235",  # Next.js frontend
 
@@ -111,6 +111,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
+    
     "http://localhost:3000",  # Replace with your Next.js frontend URL
     "http://143.244.132.118",  # Django backend
     "http://143.110.251.235",  # Next.js frontend

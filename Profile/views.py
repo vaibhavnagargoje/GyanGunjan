@@ -13,18 +13,18 @@ def custom_login(request):
             login(request, user)
             next_url = request.POST.get('next')
             if not next_url:
-                next_url = 'http://localhost:3000'  # Default URL after login
+                next_url = 'http://143.110.251.235'  # Default URL after login
             return redirect(next_url)  # Redirect to frontend after login
         else:
             return render(request, 'profile/login.html', {'error': 'Invalid credentials'})
 
-    next_url = request.GET.get('next', 'http://localhost:3000')  # Capture next from GET params
+    next_url = request.GET.get('next', 'http://143.110.251.235')  # Capture next from GET params
     return render(request, 'profile/login.html', {'next': next_url})
 
 
 def custom_logout(request):
     logout(request)
-    return redirect('http://localhost:8000/profile/login/?next=http://localhost:3000')
+    return redirect('http://143.244.132.118/profile/login/?next=http://143.110.251.235')
 
 
 
