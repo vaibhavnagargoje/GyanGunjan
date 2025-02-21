@@ -30,7 +30,6 @@ class LandingPageSection(models.Model):
         blank=True,
         help_text="Extra content (e.g., paragraph for Jeevan Darshan)"
     )
-    content = RichTextField()
 
     class Meta:
         verbose_name = "Landing Page Section"

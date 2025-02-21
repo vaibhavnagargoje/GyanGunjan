@@ -111,20 +111,20 @@ CSRF_TRUSTED_ORIGINS = [
 
 ]
 
+# CORS Settings
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
 CORS_ALLOW_CREDENTIALS = True
 
-# Authentication settings
-SESSION_COOKIE_SECURE = False  # Set to True if using HTTPS
-CSRF_COOKIE_SECURE = False  # Set to True if using HTTPS
-SESSION_COOKIE_SAMESITE = "Lax"  # Controls cookie behavior
-
 # Session/Cookie Settings
-SESSION_COOKIE_DOMAIN = 'localhost'
-CSRF_COOKIE_DOMAIN = 'localhost'
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
-CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']
+SESSION_COOKIE_NAME = 'gyangunjan_sessionid'
+SESSION_COOKIE_AGE = 20  # 2 weeks
+SESSION_COOKIE_SECURE = False  # Set to True in production (HTTPS only)
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'Lax'
 
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']
 
 
 MIDDLEWARE = [
@@ -261,3 +261,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 LOGIN_URL = '/Profile/login/'
+

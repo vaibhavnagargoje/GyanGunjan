@@ -24,7 +24,7 @@ urlpatterns = [
     path('', include('home.urls')),  # Include home app URLs
     # path('search/', include('search.urls')),  # Include home app URLs
     path('contribute/', include('contribute.urls')),  # Include contribute app URLs
-    path('Profile/', include('Profile.urls')),
+    path('profile/', include('Profile.urls')),
 
     #only for development perpose for hot reloading on browser not for deployment
 

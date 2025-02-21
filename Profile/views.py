@@ -8,20 +8,25 @@ def custom_login(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
-        
+
         if user is not None:
             login(request, user)
-            next_url = request.POST.get('next', 'http://localhost:3000')
-            return redirect(next_url)
+            next_url = request.POST.get('next')
+            if not next_url:
+                next_url = 'http://localhost:3000'  # Default URL after login
+            return redirect(next_url)  # Redirect to frontend after login
         else:
-            return render(request, 'Profile/login.html', {'error': 'Invalid credentials'})
-    
-    next_url = request.GET.get('next', 'http://localhost:3000')
-    return render(request, 'Profile/login.html', {'next': next_url})
+            return render(request, 'profile/login.html', {'error': 'Invalid credentials'})
+
+    next_url = request.GET.get('next', 'http://localhost:3000')  # Capture next from GET params
+    return render(request, 'profile/login.html', {'next': next_url})
+
 
 def custom_logout(request):
     logout(request)
-    return redirect('http://localhost:8000/profile/login/')
+    return redirect('http://localhost:8000/profile/login/?next=http://localhost:3000')
+
+
 
 @require_GET
 def check_auth(request):
