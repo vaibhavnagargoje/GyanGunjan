@@ -1,4 +1,11 @@
+
 db.sqlite3
-/static
-/media
+static/
+/media/
 /staticfiles
+
+gyan-gunjan/
+venv/
+git/
+*.pyc
+

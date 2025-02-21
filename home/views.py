@@ -36,6 +36,8 @@ from rest_framework import generics
 from rest_framework.response import Response
 from .models import JeevanDarshanSection
 from .serializers import JeevanDarshanSectionSerializer
+#login_reqired import 
+from django.contrib.auth.decorators import login_required
 
 class JeevanDarshanSectionView(generics.ListAPIView):
     """
